@@ -9,48 +9,48 @@ namespace Crud.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BeerItemsController : ControllerBase
+    public class BreweryItemsController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public BeerItemsController(DataContext context)
+        public BreweryItemsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: api/BeerItems
+        // GET: api/BreweryItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BeerItem>>> GetBeerItems()
+        public async Task<ActionResult<IEnumerable<BreweryItem>>> GetBreweryItems()
         {
-            return await _context.BeerItems.ToListAsync();
+            return await _context.BreweryItems.ToListAsync();
         }
 
-        // GET: api/BeerItems/5
+        // GET: api/BreweryItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BeerItem>> GetBeerItem(long id)
+        public async Task<ActionResult<BreweryItem>> GetBreweryItem(long id)
         {
-            var beerItem = await _context.BeerItems.FindAsync(id);
+            var breweryItem = await _context.BreweryItems.FindAsync(id);
 
-            if (beerItem == null)
+            if (breweryItem == null)
             {
                 return NotFound();
             }
 
-            return beerItem;
+            return breweryItem;
         }
 
-        // PUT: api/BeerItems/5
+        // PUT: api/BreweryItems/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBeerItem(long id, BeerItem beerItem)
+        public async Task<IActionResult> PutBreweryItem(long id, BreweryItem breweryItem)
         {
-            if (id != beerItem.Id)
+            if (id != breweryItem.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(beerItem).State = EntityState.Modified;
+            _context.Entry(breweryItem).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace Crud.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BeerItemExists(id))
+                if (!BreweryItemExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +71,37 @@ namespace Crud.Controllers
             return NoContent();
         }
 
-        // POST: api/BeerItems
+        // POST: api/BreweryItems
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<BeerItem>> PostBeerItem(BeerItem beerItem)
+        public async Task<ActionResult<BreweryItem>> PostBreweryItem(BreweryItem breweryItem)
         {
-            _context.BeerItems.Add(beerItem);
+            _context.BreweryItems.Add(breweryItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBeerItem", new { id = beerItem.Id }, beerItem);
+            return CreatedAtAction("GetBreweryItem", new { id = breweryItem.Id }, breweryItem);
         }
 
-        // DELETE: api/BeerItems/5
+        // DELETE: api/BreweryItems/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<BeerItem>> DeleteBeerItem(long id)
+        public async Task<ActionResult<BreweryItem>> DeleteBreweryItem(long id)
         {
-            var beerItem = await _context.BeerItems.FindAsync(id);
-            if (beerItem == null)
+            var breweryItem = await _context.BreweryItems.FindAsync(id);
+            if (breweryItem == null)
             {
                 return NotFound();
             }
 
-            _context.BeerItems.Remove(beerItem);
+            _context.BreweryItems.Remove(breweryItem);
             await _context.SaveChangesAsync();
 
-            return beerItem;
+            return breweryItem;
         }
 
-        private bool BeerItemExists(long id)
+        private bool BreweryItemExists(long id)
         {
-            return _context.BeerItems.Any(e => e.Id == id);
+            return _context.BreweryItems.Any(e => e.Id == id);
         }
     }
 }

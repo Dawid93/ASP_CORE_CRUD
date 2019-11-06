@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Crud
 {
-    public class BeerContext : DbContext
+    public class DataContext : DbContext
     {
-        public BeerContext(DbContextOptions<BeerContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
         public DbSet<BeerItem> BeerItems { get; set; }
+        public DbSet<BreweryItem> BreweryItems { get; set; }
     }
 }
