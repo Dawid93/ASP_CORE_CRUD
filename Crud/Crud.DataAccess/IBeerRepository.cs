@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crud.DataAccess
 {
-    public interface IBeerRespository
+    public interface IBeerRepository
     {
         IEnumerable<Beer> GetBeers();
         Beer GetBeer(Guid beerId);

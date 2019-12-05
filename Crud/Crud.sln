@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crud", "Crud\Crud.csproj", "{112CF177-38F9-4628-80CD-2CE769965357}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22A02F9A-373A-43B4-9668-0B89D1150A44} = {22A02F9A-373A-43B4-9668-0B89D1150A44}
+		{61039AF1-E516-4DDE-9265-BBBDBAA3FFD6} = {61039AF1-E516-4DDE-9265-BBBDBAA3FFD6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crud.DataAccess", "Crud.DataAccess\Crud.DataAccess.csproj", "{61039AF1-E516-4DDE-9265-BBBDBAA3FFD6}"
 EndProject
