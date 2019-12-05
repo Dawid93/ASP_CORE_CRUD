@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Crud.BuisnesLogic.Profiles;
 using Crud.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,7 @@ namespace Crud
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddXmlDataContractSerializerFormatters();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddScoped<IBeerRepository, BeerSqlRepository>();
             services.AddDbContext<BeerDbContext>(options =>
             {
