@@ -7,6 +7,7 @@ using Crud.BuisnesLogic.Dto;
 using Crud.DataAccess;
 using Crud.DataAccess.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crud.Controllers
@@ -49,6 +50,56 @@ namespace Crud.Controllers
             beerRepository.Commit();
             var beerToReturn = mapper.Map<BeerDto>(beerEntity);
             return CreatedAtRoute("GetBeer", new { beerId = beerToReturn.BeerId }, beerToReturn);
+        }
+
+        [HttpPut("{beerId}")]
+        public ActionResult UpdateBeer(Guid beerId, BeerForUpdateDto beer) 
+        {
+            var beerFromRepo = beerRepository.GetBeer(beerId);
+
+            if(beerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(beer, beerFromRepo);
+            beerRepository.UpdateBeer(beerFromRepo);
+            beerRepository.Commit();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{beerId}")]
+        public ActionResult PartialUpdateBeer(Guid beerId, JsonPatchDocument<BeerForUpdateDto> patchDocument)
+        {
+            var beerFromRepo = beerRepository.GetBeer(beerId);
+
+            if (beerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var beerPatch = mapper.Map<BeerForUpdateDto>(beerFromRepo);
+            patchDocument.ApplyTo(beerPatch, ModelState);
+
+            if (!TryValidateModel(beerPatch))
+                return ValidationProblem(ModelState);
+
+            mapper.Map(beerPatch, beerFromRepo);
+            beerRepository.UpdateBeer(beerFromRepo);
+            beerRepository.Commit();
+            return NoContent();
+        }
+
+        [HttpDelete("{beerId}")]
+        public ActionResult DeleteBeer(Guid beerId)
+        {
+            var beerFromRepo = beerRepository.GetBeer(beerId);
+            if (beerFromRepo == null)
+                return NotFound();
+            beerRepository.DeleteBeer(beerFromRepo);
+            beerRepository.Commit();
+            return NoContent();
         }
     }
 }

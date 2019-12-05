@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace Crud
 {
@@ -29,7 +30,10 @@ namespace Crud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddXmlDataContractSerializerFormatters();
+            services.AddControllers().AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            }).AddXmlDataContractSerializerFormatters();
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddScoped<IBeerRepository, BeerSqlRepository>();
             services.AddDbContext<BeerDbContext>(options =>

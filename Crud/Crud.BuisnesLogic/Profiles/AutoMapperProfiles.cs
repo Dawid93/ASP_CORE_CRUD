@@ -14,6 +14,8 @@ namespace Crud.BuisnesLogic.Profiles
             // BeerProfiles
             CreateMap<Beer, BeerDto>();
             CreateMap<BeerForCreationDto, Beer>();
+            CreateMap<BeerForUpdateDto, Beer>();
+            CreateMap<Beer, BeerForUpdateDto>();
         }
     }
 }
