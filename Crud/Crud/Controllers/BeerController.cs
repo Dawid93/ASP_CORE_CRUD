@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Crud.BuisnesLogic.Dto;
 using Crud.DataAccess;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,13 @@ namespace Crud.Controllers
         {
             this.beerRepository = beerRepository;
             this.mapper = mapper;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<BeerDto>> GetBeers()
+        {
+            var beersFromRepo = beerRepository.GetBeers();
+            return Ok(mapper.Map<IEnumerable<BeerDto>>(beersFromRepo));
         }
     }
 }
