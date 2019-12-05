@@ -13,5 +13,6 @@ namespace Crud.DataAccess.Models
         public string BeerName { get; set; }
         [MaxLength(1500)]
         public string BeerDescription { get; set; }
+        public byte[] BeerLabelImg { get; set; }
     }
 }
