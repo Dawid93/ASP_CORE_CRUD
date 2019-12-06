@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BeerService } from '../beer.service';
+import { Beer } from '../Models/beer';
 
 @Component({
   selector: 'app-beer-collection',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeerCollectionComponent implements OnInit {
 
-  constructor() { }
+  beers: Beer[];
+  
+  constructor(private beerService: BeerService) { }
 
   ngOnInit() {
+    this.beerService.getBeers().subscribe({
+      next: beers => {
+        this.beers = beers;
+      }
+    });
   }
 
 }

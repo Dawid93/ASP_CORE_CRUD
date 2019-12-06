@@ -1,1 +1,6 @@
 <p>beer-collection works!</p>
+<div *ngFor='let beer of beers'>
+    <p>{{ beer.beerId }}</p>
+    <p>{{ beer.beerName }}</p>
+    <p>{{ beer.beerDescription }}</p>
+</div>
