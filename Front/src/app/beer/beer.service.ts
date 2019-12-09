@@ -14,4 +14,8 @@ export class BeerService {
   getBeers(): Observable<Beer[]> {
     return this.http.get<Beer[]>(this.beerControllerApi);
   }
+
+  getBeer(id: string): Observable<Beer> {
+    return this.http.get<Beer>(this.beerControllerApi + '/' + id);
+  }
 }
