@@ -1,6 +1,8 @@
 <form>
     <div class="form-group">
-        <input type="text" class="form-control" id="beerName" placeholder="Beer Name">
-        <textarea class="form-control" id="beerDescription" placeholder="Beer Description"></textarea>
+        <input type="text" name="beerName" class="form-control" [(ngModel)]='beerToSend.beerName' placeholder="Beer Name">
+        <textarea class="form-control" name="beerDesc" [(ngModel)]='beerToSend.beerDescription' placeholder="Beer Description"></textarea>
+        <input type="file" name="beerFile" (change)="onFileChange($event)" />
+        <button type="submit" (click)="onClick()">Save</button>
     </div>
 </form>

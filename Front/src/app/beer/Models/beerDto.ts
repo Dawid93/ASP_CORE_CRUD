@@ -1,4 +1,4 @@
-export class Beer {
+export class BeerDto {
     beerId: string;
     beerName: string;
     beerDescription: string;

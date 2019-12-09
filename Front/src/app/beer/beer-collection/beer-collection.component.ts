@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../beer.service';
-import { Beer } from '../Models/beer';
+import { BeerDto } from '../Models/beerDto';
 
 @Component({
   selector: 'app-beer-collection',
@@ -9,7 +9,7 @@ import { Beer } from '../Models/beer';
 })
 export class BeerCollectionComponent implements OnInit {
 
-  beers: Beer[];
+  beers: BeerDto[];
   
   constructor(private beerService: BeerService) { }
 
