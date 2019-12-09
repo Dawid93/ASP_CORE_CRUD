@@ -1,6 +1,17 @@
 <p>beer-collection works!</p>
-<div *ngFor='let beer of beers'>
-    <p>{{ beer.beerId }}</p>
-    <p>{{ beer.beerName }}</p>
-    <p>{{ beer.beerDescription }}</p>
+<div class="card-deck" style="max-height: 200px;">
+    <div class="card" *ngFor='let beer of beers'>
+        <img class="card-img-top" src="../../../assets/img/beer-placeholder.png" alt="Beer label image">
+        <div class="card-header">
+            <h5 class="card-title">{{ beer.beerName }}</h5>
+        </div>
+        <div class="card-body">
+
+        </div>
+        <div class="card-footer">
+            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-search"></i></a>
+            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-edit"></i></a>
+            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-trash"></i></a>
+        </div>
+    </div>
 </div>

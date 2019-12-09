@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand navbar-light bg-light border-botton shadow-sm">
     <a class="navbar-brand">{{ pageTitle }} </a>
     <ul class="nav navbar-nav">
-        <li><a class="nav-link" [routerLink]="['/welcome']">Home</a></li>
         <li><a class="nav-link" [routerLink]="['/beers']">Beers List</a></li>
     </ul>
 </nav>
 <div class="container" style="padding-top: 2rem">
-    <app-beer-collection></app-beer-collection>
+    <router-outlet></router-outlet>
 </div>
