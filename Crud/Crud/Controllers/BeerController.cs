@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Crud.BuisnesLogic.Dto;
 using Crud.DataAccess;
 using Crud.DataAccess.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +19,13 @@ namespace Crud.Controllers
     {
         private readonly IBeerRepository beerRepository;
         private readonly IMapper mapper;
+        private readonly IWebHostEnvironment enviroment;
 
-        public BeerController(IBeerRepository beerRepository, IMapper mapper)
+        public BeerController(IBeerRepository beerRepository, IMapper mapper, IWebHostEnvironment enviroment)
         {
             this.beerRepository = beerRepository;
             this.mapper = mapper;
+            this.enviroment = enviroment;
         }
 
         [HttpGet]
@@ -43,12 +47,19 @@ namespace Crud.Controllers
         }
 
         [HttpPost]
-        public ActionResult<BeerDto> AddNewBeer(BeerForCreationDto beer)
+        public async Task<ActionResult<BeerDto>> AddNewBeer([FromForm]BeerForCreationDto beer)
         {
             var beerEntity = mapper.Map<Beer>(beer);
             beerRepository.AddBeer(beerEntity);
-            beerRepository.Commit();
+            
             var beerToReturn = mapper.Map<BeerDto>(beerEntity);
+
+            if (beer.File != null && beer.File.Length > 0)
+            {
+                string x = await SaveFile(beer.File, beerToReturn.BeerId.ToString());
+            }
+
+            beerRepository.Commit();
             return CreatedAtRoute("GetBeer", new { beerId = beerToReturn.BeerId }, beerToReturn);
         }
 
@@ -100,6 +111,25 @@ namespace Crud.Controllers
             beerRepository.DeleteBeer(beerFromRepo);
             beerRepository.Commit();
             return NoContent();
+        }
+
+        private async Task<string> SaveFile(IFormFile file, string name)
+        {
+            string ext = Path.GetExtension(file.Name);
+            string folderName = "\\BeerLabels";
+            string path; 
+
+            if(!Directory.Exists(enviroment.WebRootPath + folderName)) {
+                Directory.CreateDirectory(enviroment.WebRootPath + folderName);
+            }
+
+            path = enviroment.WebRootPath + folderName;
+
+            using (var stream = System.IO.File.Create(path + "\\" + name + "." + ext))
+            {
+                await file.CopyToAsync(stream);
+                return "\\BeerLabels\\" + name + "." + ext;
+            }
         }
     }
 }
