@@ -1,8 +1,10 @@
-<form>
+<form [formGroup]="uploadForm" class="form-group" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <input type="text" name="beerName" class="form-control" [(ngModel)]='beerToSend.beerName' placeholder="Beer Name">
-        <textarea class="form-control" name="beerDesc" [(ngModel)]='beerToSend.beerDescription' placeholder="Beer Description"></textarea>
-        <input type="file" name="beerFile" (change)="onFileChange($event)" />
-        <button type="submit" (click)="onClick()">Save</button>
+        <input type="text" formControlName="beerName" class="form-control" placeholder="Beer Name">
+        <textarea class="form-control" formControlName="beerDesc" placeholder="Beer Description"></textarea>
+        <input type="file" (change)="onFileChange($event)" />
+        <button type="submit">Save</button>
     </div>
 </form>
+
+<br>Value: {{ uploadForm.value | json }}
