@@ -31,15 +31,19 @@ export class BeerService {
     return this.http.get<BeerDto>(this.beerControllerApi + '/' + id);
   }
 
-  postBeer(beer: FormData) {
-    return this.http.post<FormData>(this.beerControllerApi, beer, this.httpOptions);
+  postBeer(beer: FormData): Observable<BeerDto> {
+    return this.http.post<BeerDto>(this.beerControllerApi, beer, this.httpOptions).pipe(map(response => response));
   }
 
-  patchBeer(beer: FormData, id: string) {
-    return this.http.patch<FormData>(this.beerControllerApi + '/' + id, beer, this.httpOptions);
+  patchBeer(beer: FormData, id: string): Observable<{}> {
+    return this.http.patch<{}>(this.beerControllerApi + '/' + id, beer, this.httpOptions).pipe(map(response => response));
   }
 
-  putBeer(beer: FormData, id: string) {
-    return this.http.put<FormData>(this.beerControllerApi + '/' + id, beer, this.httpOptions);
+  putBeer(beer: FormData, id: string): Observable<{}> {
+    return this.http.put<{}>(this.beerControllerApi + '/' + id, beer, this.httpOptions).pipe(map(response => response));
+  }
+
+  deleteBeer(id: string): Observable<{}> {
+    return this.http.delete(this.beerControllerApi + '/' + id);
   }
 }

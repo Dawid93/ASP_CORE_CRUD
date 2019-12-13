@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../beer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BeerDto } from '../Models/beerDto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-beer-form',
@@ -14,7 +14,7 @@ export class BeerFormComponent implements OnInit {
   private uploadForm: FormGroup;
   private id: string;
 
-  constructor(private beerService: BeerService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private beerService: BeerService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -25,9 +25,11 @@ export class BeerFormComponent implements OnInit {
     });
 
     this.id = this.route.snapshot.paramMap.get('beerId');
-    this.beerService.getBeer(this.id).subscribe({
-      next: beer => this.displayBeerData(beer)
-    });
+    if (this.id !== '0') {
+      this.beerService.getBeer(this.id).subscribe({
+        next: beer => this.displayBeerData(beer)
+      });
+    }
   }
 
   displayBeerData(beer: BeerDto) {
@@ -35,6 +37,10 @@ export class BeerFormComponent implements OnInit {
       beerName: beer.beerName,
       beerDescription: beer.beerDescription
     });
+  }
+
+  routeToDetails(id: string) {
+    this.router.navigate(['/beers', id]);
   }
 
   onFileChange(event) {
@@ -52,15 +58,14 @@ export class BeerFormComponent implements OnInit {
     formData.append('beerImgFile', this.uploadForm.get('beerImgFile').value);
     formData.append('beerName', this.uploadForm.get('beerName').value);
     formData.append('beerDescription', this.uploadForm.get('beerDescription').value);
-    console.log(formData.get('beerImgFile ' + 'beerName ' + 'beerDescription'));
     if (this.id === '0') {
       this.beerService.postBeer(formData).subscribe(
-        (res) => console.log(res),
+        (res) => this.router.navigate(['/beers', res.beerId]),
         (err) => console.log(err)
       );
     } else {
       this.beerService.putBeer(formData, this.id).subscribe(
-        (res) => console.log(res),
+        (res) => this.router.navigate(['/beers', this.id]),
         (err) => console.log(err)
       );
     }

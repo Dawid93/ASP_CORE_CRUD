@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { BeerService } from '../beer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BeerDto } from '../Models/beerDto';
 
 @Component({
@@ -12,7 +12,7 @@ export class BeerDetailComponent implements OnInit {
 
   beer: BeerDto;
 
-  constructor(private beerService: BeerService, private route: ActivatedRoute) { }
+  constructor(private beerService: BeerService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('beerId');
@@ -25,6 +25,12 @@ export class BeerDetailComponent implements OnInit {
 
   createLabelSrc(fileSrc: string) {
     return this.beerService.getBeerLabelSrc(fileSrc);
+  }
+
+  deleteBeer(id: string) {
+    return this.beerService.deleteBeer(id).subscribe({
+      next: () => this.router.navigate(['/beers'])
+    });
   }
 
 }
