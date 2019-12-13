@@ -1,7 +1,7 @@
 <form [formGroup]="uploadForm" class="form-group" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <input type="text" formControlName="beerName" class="form-control" placeholder="Beer Name">
-        <textarea class="form-control" formControlName="beerDesc" placeholder="Beer Description"></textarea>
+        <textarea class="form-control" formControlName="beerDescription" placeholder="Beer Description"></textarea>
         <input type="file" (change)="onFileChange($event)" />
         <button type="submit">Save</button>
     </div>
