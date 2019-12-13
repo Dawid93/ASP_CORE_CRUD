@@ -12,6 +12,6 @@ namespace Crud.BuisnesLogic.Dto
         public string BeerName { get; set; }
         [MaxLength(1500)]
         public string BeerDescription { get; set; }
-        public IFormFile File { get; set; }
+        public IFormFile BeerImgFile { get; set; }
     }
 }
