@@ -34,4 +34,12 @@ export class BeerService {
   postBeer(beer: FormData) {
     return this.http.post<FormData>(this.beerControllerApi, beer, this.httpOptions);
   }
+
+  patchBeer(beer: FormData, id: string) {
+    return this.http.patch<FormData>(this.beerControllerApi + '/' + id, beer, this.httpOptions);
+  }
+
+  putBeer(beer: FormData, id: string) {
+    return this.http.put<FormData>(this.beerControllerApi + '/' + id, beer, this.httpOptions);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../beer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BeerDto } from '../Models/beerDto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-beer-form',
@@ -9,9 +11,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class BeerFormComponent implements OnInit {
 
-  uploadForm: FormGroup;
+  private uploadForm: FormGroup;
+  private id: string;
 
-  constructor(private beerService: BeerService, private formBuilder: FormBuilder) {
+  constructor(private beerService: BeerService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -19,6 +22,18 @@ export class BeerFormComponent implements OnInit {
       beerName: [''],
       beerDescription: [''],
       beerImgFile: ['']
+    });
+
+    this.id = this.route.snapshot.paramMap.get('beerId');
+    this.beerService.getBeer(this.id).subscribe({
+      next: beer => this.displayBeerData(beer)
+    });
+  }
+
+  displayBeerData(beer: BeerDto) {
+    this.uploadForm.patchValue({
+      beerName: beer.beerName,
+      beerDescription: beer.beerDescription
     });
   }
 
@@ -38,9 +53,16 @@ export class BeerFormComponent implements OnInit {
     formData.append('beerName', this.uploadForm.get('beerName').value);
     formData.append('beerDescription', this.uploadForm.get('beerDescription').value);
     console.log(formData.get('beerImgFile ' + 'beerName ' + 'beerDescription'));
-    this.beerService.postBeer(formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    if (this.id === '0') {
+      this.beerService.postBeer(formData).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
+    } else {
+      this.beerService.putBeer(formData, this.id).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
+    }
   }
 }

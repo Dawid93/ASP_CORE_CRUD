@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { BeerService } from '../beer.service';
 import { ActivatedRoute } from '@angular/router';
 import { BeerDto } from '../Models/beerDto';
@@ -15,9 +15,11 @@ export class BeerDetailComponent implements OnInit {
   constructor(private beerService: BeerService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('beerId');
+    const id = this.route.snapshot.paramMap.get('beerId');
     this.beerService.getBeer(id).subscribe({
-      next: beer => { this.beer = beer; }
+      next: beer => {
+        this.beer = beer;
+      }
     });
   }
 

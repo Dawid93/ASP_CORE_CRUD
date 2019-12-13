@@ -8,7 +8,7 @@ import { BeerDetailComponent } from './beer/beer-detail/beer-detail.component';
 const routes: Routes = [
   { path: 'beers', component: BeerCollectionComponent },
   { path: 'beers/:beerId', component: BeerDetailComponent },
-  { path: 'beer-add', component: BeerFormComponent },
+  { path: 'beers/:beerId/edit', component: BeerFormComponent },
   { path: '', redirectTo: 'beers', pathMatch: 'full'}
 ];
 
