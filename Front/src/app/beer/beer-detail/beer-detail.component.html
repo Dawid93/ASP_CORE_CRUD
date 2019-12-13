@@ -1,11 +1,49 @@
-<div class="row" *ngIf='beer'>
-    <div class="col-md-5">
-        <img src="./assets/img/beer-placeholder.png">
-    </div>
+<div *ngIf='beer'>
+    <div class="row mb-3">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    Label:
+                </div>
+                <div class="card-body">
+                    <div *ngIf="!beer.beerLabelImg || beer.beerLabelImg === ''; then placeholder else getImg"></div>
+                    <ng-template #placeholder>
+                        <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(./assets/img/beer-placeholder.png) center center no-repeat'}"></div> -->
+                        <img class="card-img" src="./assets/img/beer-placeholder.png" alt="Beer label image">
+                    </ng-template>
+                    <ng-template #getImg>
+                        <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(' + createLabelSrc(beer.beerLabelImg) + ')'}">{{ createLabelSrc(beer.beerLabelImg) }}</div> -->
+                        <img class="card-img" [src]="createLabelSrc(beer.beerLabelImg)" alt="Beer label image">
+                    </ng-template>
+                </div>
+            </div>
+        </div>
 
-    <div class="col-md-7">
-        <h1>Name: {{ beer.beerName }}</h1>
-        <h3>Description:</h3>
-        <p>{{ beer.beerDescription }}</p>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    Basic info:
+                </div>
+                <div class="card-body">
+                    <h2>Name: {{ beer.beerName }}</h2>
+                    <h3>Description:</h3>
+                    <p>{{ beer.beerDescription }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Operations
+                </div>
+
+                <div class="card-body">
+                    <a href="" class="btn btn-outline-primary mr-2">Edit</a>
+                    <a href="" class="btn btn-outline-danger mr-2">Delete</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

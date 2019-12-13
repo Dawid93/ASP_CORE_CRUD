@@ -21,4 +21,8 @@ export class BeerDetailComponent implements OnInit {
     });
   }
 
+  createLabelSrc(fileSrc: string) {
+    return this.beerService.getBeerLabelSrc(fileSrc);
+  }
+
 }
