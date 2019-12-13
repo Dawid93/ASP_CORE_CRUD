@@ -63,13 +63,18 @@ namespace Crud.Controllers
         }
 
         [HttpPut("{beerId}")]
-        public ActionResult UpdateBeer(Guid beerId, BeerForUpdateDto beer) 
+        public async Task<ActionResult> UpdateBeer(Guid beerId, [FromForm]BeerForUpdateDto beer) 
         {
             var beerFromRepo = beerRepository.GetBeer(beerId);
 
             if(beerFromRepo == null)
             {
                 return NotFound();
+            }
+
+            if (beer.BeerImgFile != null && beer.BeerImgFile.Length > 0)
+            {
+                beerFromRepo.BeerLabelImg = await SaveFile(beer.BeerImgFile, beerFromRepo.BeerId.ToString());
             }
 
             mapper.Map(beer, beerFromRepo);
@@ -80,7 +85,7 @@ namespace Crud.Controllers
         }
 
         [HttpPatch("{beerId}")]
-        public ActionResult PartialUpdateBeer(Guid beerId, JsonPatchDocument<BeerForUpdateDto> patchDocument)
+        public ActionResult PartialUpdateBeer(Guid beerId, [FromForm]JsonPatchDocument<BeerForUpdateDto> patchDocument)
         {
             var beerFromRepo = beerRepository.GetBeer(beerId);
 
