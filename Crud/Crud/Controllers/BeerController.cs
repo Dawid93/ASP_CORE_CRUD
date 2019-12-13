@@ -50,15 +50,14 @@ namespace Crud.Controllers
         public async Task<ActionResult<BeerDto>> AddNewBeer([FromForm]BeerForCreationDto beer)
         {
             var beerEntity = mapper.Map<Beer>(beer);
-            beerRepository.AddBeer(beerEntity);
-            
-            var beerToReturn = mapper.Map<BeerDto>(beerEntity);
+            beerEntity.BeerId = Guid.NewGuid();
 
-            if (beer.File != null && beer.File.Length > 0)
+            if (beer.BeerImgFile != null && beer.BeerImgFile.Length > 0)
             {
-                string x = await SaveFile(beer.File, beerToReturn.BeerId.ToString());
+                beerEntity.BeerLabelImg = await SaveFile(beer.BeerImgFile, beerEntity.BeerId.ToString());
             }
-
+            var beerToReturn = mapper.Map<BeerDto>(beerEntity);
+            beerRepository.AddBeer(beerEntity);
             beerRepository.Commit();
             return CreatedAtRoute("GetBeer", new { beerId = beerToReturn.BeerId }, beerToReturn);
         }
@@ -115,7 +114,7 @@ namespace Crud.Controllers
 
         private async Task<string> SaveFile(IFormFile file, string name)
         {
-            string ext = Path.GetExtension(file.Name);
+            string ext = Path.GetExtension(file.FileName);
             string folderName = "\\BeerLabels";
             string path; 
 
@@ -125,10 +124,10 @@ namespace Crud.Controllers
 
             path = enviroment.WebRootPath + folderName;
 
-            using (var stream = System.IO.File.Create(path + "\\" + name + "." + ext))
+            using (var stream = System.IO.File.Create(path + @"\" + name + ext))
             {
                 await file.CopyToAsync(stream);
-                return "\\BeerLabels\\" + name + "." + ext;
+                return @"\BeerLabels\" + name + ext;
             }
         }
     }

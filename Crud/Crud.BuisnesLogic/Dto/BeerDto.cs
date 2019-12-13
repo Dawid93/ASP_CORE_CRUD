@@ -9,6 +9,6 @@ namespace Crud.BuisnesLogic.Dto
         public Guid BeerId { get; set; }
         public string BeerName { get; set; }
         public string BeerDescription { get; set; }
-        public byte[] BeerLabelImg { get; set; }
+        public string BeerLabelImg { get; set; }
     }
 }
