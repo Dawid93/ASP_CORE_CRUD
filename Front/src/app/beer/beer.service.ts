@@ -9,6 +9,8 @@ import { catchError, tap, map } from 'rxjs/operators';
 })
 export class BeerService {
   readonly beerControllerApi: string = 'http://localhost:50001/api/beer';
+  readonly hostPath: string = 'http://localhost:50001';
+
   readonly httpOptions = {
     headers: new HttpHeaders({
       // 'Content-Type': 'multipart/form-data'
@@ -16,6 +18,10 @@ export class BeerService {
   };
 
   constructor(private http: HttpClient) { }
+
+  getBeerLabelSrc(filePath: string): string {
+    return this.hostPath + filePath;
+  }
 
   getBeers(): Observable<BeerDto[]> {
     return this.http.get<BeerDto[]>(this.beerControllerApi);

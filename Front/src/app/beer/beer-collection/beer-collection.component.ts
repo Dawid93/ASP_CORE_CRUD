@@ -10,15 +10,17 @@ import { BeerDto } from '../Models/beerDto';
 export class BeerCollectionComponent implements OnInit {
 
   beers: BeerDto[];
-  
+
   constructor(private beerService: BeerService) { }
 
   ngOnInit() {
     this.beerService.getBeers().subscribe({
-      next: beers => {
-        this.beers = beers;
-      }
+      next: beers => this.beers = beers
     });
+  }
+
+  createLabelSrc(fileSrc: string) {
+    return this.beerService.getBeerLabelSrc(fileSrc);
   }
 
 }

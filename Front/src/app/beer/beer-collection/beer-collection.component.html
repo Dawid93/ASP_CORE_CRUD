@@ -1,27 +1,25 @@
-<div class="card-deck" style="max-height: 200px;">
-    <div class="card" *ngFor='let beer of beers'>
-        <div *ngIf="beer.beerLabelImg === 'null' || beer.beerLabelImg === ''; then placeholder else getImg"></div>
-        <ng-template #placeholder>
-            <img class="card-img-top" src="./assets/img/beer-placeholder.png" alt="Beer label image">
-        </ng-template>
-        <ng-template #getImg>
-            <img class="card-img-top" [src]='beer.beerLabelImg' alt="Beer label image">
-        </ng-template>
+<div class="row">
+    <div class="col-md-3" *ngFor='let beer of beers'>
+        <a [routerLink]="['/beers', beer.beerId]">
+            <div class="card mb-3 beer-card">
+                <div *ngIf="!beer.beerLabelImg || beer.beerLabelImg === ''; then placeholder else getImg"></div>
+                <ng-template #placeholder>
+                    <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(./assets/img/beer-placeholder.png) center center no-repeat'}"></div> -->
+                    <img class="beer-card-image" src="./assets/img/beer-placeholder.png" alt="Beer label image">
+                </ng-template>
+                <ng-template #getImg>
+                    <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(' + createLabelSrc(beer.beerLabelImg) + ')'}">{{ createLabelSrc(beer.beerLabelImg) }}</div> -->
+                    <img class="beer-card-image" [src]="createLabelSrc(beer.beerLabelImg)" alt="Beer label image">
+                </ng-template>
 
-        <div class="card-header">
-            <h5 class="card-title">{{ beer.beerName }}</h5>
-        </div>
-        <div class="card-body">
+                <div class="beer-card-body beer-card-body-text_bg">
+                    <div class="beer-card-body-text">
+                        <h5>{{ beer.beerName }}</h5>
+                    </div>
+                </div>
+            </div>
 
-        </div>
-        <div class="card-footer">
-            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-search"></i></a>
-            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-edit"></i></a>
-            <a [routerLink]="['/beers', beer.beerId]"><i class="fa fa-trash"></i></a>
-        </div>
+
+        </a>
     </div>
-
-    <button [routerLink]="['/beer-add']" class="floating-btn">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </button>
 </div>
