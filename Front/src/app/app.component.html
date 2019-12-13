@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand">{{ pageTitle }} </a>
+    <ul class="nav navbar-nav">
+        <li><a class="nav-link" [routerLink]="['/beers']">Beers List</a></li>
+        <li><a class="nav-link" [routerLink]="['/beers/0/edit']">Add Beer</a></li>
+    </ul>
+</nav>
+<div class="container" style="padding-top: 4.5rem;">
+    <router-outlet></router-outlet>
+</div>

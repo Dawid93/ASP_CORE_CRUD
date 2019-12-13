@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-3" *ngFor='let beer of beers'>
+        <a [routerLink]="['/beers', beer.beerId]">
+            <div class="card mb-3 beer-card">
+                <div *ngIf="!beer.beerLabelImg || beer.beerLabelImg === ''; then placeholder else getImg"></div>
+                <ng-template #placeholder>
+                    <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(./assets/img/beer-placeholder.png) center center no-repeat'}"></div> -->
+                    <img class="beer-card-image" src="./assets/img/beer-placeholder.png" alt="Beer label image">
+                </ng-template>
+                <ng-template #getImg>
+                    <!-- <div class="w-100 h-100" [ngStyle]="{background: 'url(' + createLabelSrc(beer.beerLabelImg) + ')'}">{{ createLabelSrc(beer.beerLabelImg) }}</div> -->
+                    <img class="beer-card-image" [src]="createLabelSrc(beer.beerLabelImg)" alt="Beer label image">
+                </ng-template>
+
+                <div class="beer-card-body beer-card-body-text_bg">
+                    <div class="beer-card-body-text">
+                        <h5>{{ beer.beerName }}</h5>
+                    </div>
+                </div>
+            </div>
+
+
+        </a>
+    </div>
+</div>

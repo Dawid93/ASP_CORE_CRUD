@@ -19,7 +19,6 @@ namespace Crud.DataAccess
         {
             if (beer == null)
                 throw new ArgumentNullException(nameof(beer));
-            beer.BeerId = Guid.NewGuid();
             context.Add(beer);
         }
 
