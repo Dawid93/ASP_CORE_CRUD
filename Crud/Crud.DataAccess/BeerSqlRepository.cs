@@ -41,7 +41,7 @@ namespace Crud.DataAccess
 
         public IEnumerable<Beer> GetBeers()
         {
-            return context.Beers.ToList<Beer>();
+            return context.Beers.ToList();
         }
 
         public void UpdateBeer(Beer beer)

@@ -11,6 +11,7 @@ namespace Crud.DataAccess
         public BeerDbContext(DbContextOptions<BeerDbContext> options) : base(options) { }
 
         public DbSet<Beer> Beers { get; set; }
+        public DbSet<BeerType> BeerTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
