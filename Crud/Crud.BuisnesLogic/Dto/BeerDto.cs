@@ -12,5 +12,6 @@ namespace Crud.BuisnesLogic.Dto
         public string BeerName { get; set; }
         public string BeerDescription { get; set; }
         public string BeerLabelImg { get; set; }
+        public Guid? BeerTypeFK { get; set; }
     }
 }
