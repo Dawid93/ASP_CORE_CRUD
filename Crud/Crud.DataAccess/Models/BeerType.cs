@@ -8,8 +8,8 @@ namespace Crud.DataAccess.Models
     public class BeerType
     {
         [Key]
-        public Guid BeerTypId;
+        public Guid BeerTypId { get; set; }
         [Required]
-        public string BeerTypeName;
+        public string BeerTypeName { get; set; }
     }
 }
