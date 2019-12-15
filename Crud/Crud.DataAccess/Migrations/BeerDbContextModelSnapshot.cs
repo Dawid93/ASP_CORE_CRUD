@@ -48,7 +48,7 @@ namespace Crud.DataAccess.Migrations
 
             modelBuilder.Entity("Crud.DataAccess.Models.BeerType", b =>
                 {
-                    b.Property<Guid>("BeerTypId")
+                    b.Property<Guid>("BeerTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -56,7 +56,7 @@ namespace Crud.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BeerTypId");
+                    b.HasKey("BeerTypeId");
 
                     b.ToTable("BeerTypes");
                 });

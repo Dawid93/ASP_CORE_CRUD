@@ -7,8 +7,8 @@ namespace Crud.BuisnesLogic.Dto
 {
     public class BeerTypeDto
     {
-        public Guid BeerTypeId;
+        public Guid BeerTypeId { get; set; }
         [Required]
-        public string BeerTypeName;
+        public string BeerTypeName { get; set; }
     }
 }

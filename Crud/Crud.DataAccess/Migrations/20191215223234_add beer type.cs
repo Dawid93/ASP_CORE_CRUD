@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Crud.DataAccess.Migrations
 {
-    public partial class CreateBeerTypeentity : Migration
+    public partial class addbeertype : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,12 +36,12 @@ namespace Crud.DataAccess.Migrations
                 name: "BeerTypes",
                 columns: table => new
                 {
-                    BeerTypId = table.Column<Guid>(nullable: false),
+                    BeerTypeId = table.Column<Guid>(nullable: false),
                     BeerTypeName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BeerTypes", x => x.BeerTypId);
+                    table.PrimaryKey("PK_BeerTypes", x => x.BeerTypeId);
                 });
 
             migrationBuilder.CreateIndex(
@@ -54,7 +54,7 @@ namespace Crud.DataAccess.Migrations
                 table: "Beers",
                 column: "BeerTypeFK",
                 principalTable: "BeerTypes",
-                principalColumn: "BeerTypId",
+                principalColumn: "BeerTypeId",
                 onDelete: ReferentialAction.Restrict);
         }
 

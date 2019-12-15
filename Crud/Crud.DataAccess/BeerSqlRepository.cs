@@ -61,7 +61,7 @@ namespace Crud.DataAccess
         {
             if (beerTypeId == Guid.Empty)
                 throw new ArgumentNullException();
-            return context.BeerTypes.Where(x => x.BeerTypId == beerTypeId).FirstOrDefault();
+            return context.BeerTypes.Where(x => x.BeerTypeId == beerTypeId).FirstOrDefault();
         }
 
         public void AddBeerType(BeerType beerType)

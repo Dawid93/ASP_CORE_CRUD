@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crud.DataAccess.Migrations
 {
     [DbContext(typeof(BeerDbContext))]
-    [Migration("20191215203228_Create BeerType entity")]
-    partial class CreateBeerTypeentity
+    [Migration("20191215223234_add beer type")]
+    partial class addbeertype
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,7 @@ namespace Crud.DataAccess.Migrations
 
             modelBuilder.Entity("Crud.DataAccess.Models.BeerType", b =>
                 {
-                    b.Property<Guid>("BeerTypId")
+                    b.Property<Guid>("BeerTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -58,7 +58,7 @@ namespace Crud.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BeerTypId");
+                    b.HasKey("BeerTypeId");
 
                     b.ToTable("BeerTypes");
                 });

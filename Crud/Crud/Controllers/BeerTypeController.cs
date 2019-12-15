@@ -26,7 +26,7 @@ namespace Crud.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<BeerTypeDto>> GetBeerTypes() {
             var beerTypesFromRepo = beerTypeRepository.GetBeerTypes();
-            return Ok(mapper.Map<IEnumerable<BeerDto>>(beerTypesFromRepo));
+            return Ok(mapper.Map<IEnumerable<BeerTypeDto>>(beerTypesFromRepo));
         }
 
         [HttpGet("beerTypeId", Name = "GetBeerType")]
@@ -44,7 +44,7 @@ namespace Crud.Controllers
         public ActionResult<BeerTypeDto> CreateBeerType([FromForm]BeerTypeDto beerType)
         {
             var beerTypeEntity = mapper.Map<BeerType>(beerType);
-            beerTypeEntity.BeerTypId = Guid.NewGuid();
+            beerTypeEntity.BeerTypeId = Guid.NewGuid();
 
             var beerTypeToReturn = mapper.Map<BeerTypeDto>(beerTypeEntity);
             beerTypeRepository.AddBeerType(beerTypeEntity);
