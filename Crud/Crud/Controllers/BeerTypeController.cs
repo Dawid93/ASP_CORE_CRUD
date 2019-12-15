@@ -24,13 +24,13 @@ namespace Crud.Controllers
         }
 
         [HttpGet]
-        private ActionResult<IEnumerable<BeerTypeDto>> GetBeerTypes() {
+        public ActionResult<IEnumerable<BeerTypeDto>> GetBeerTypes() {
             var beerTypesFromRepo = beerTypeRepository.GetBeerTypes();
             return Ok(mapper.Map<IEnumerable<BeerDto>>(beerTypesFromRepo));
         }
 
         [HttpGet("beerTypeId", Name = "GetBeerType")]
-        private ActionResult<BeerTypeDto> GetBeerType(Guid beerTypeId)
+        public ActionResult<BeerTypeDto> GetBeerType(Guid beerTypeId)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);
             if(beerTypeFromRepo == null)
@@ -41,7 +41,7 @@ namespace Crud.Controllers
         }
 
         [HttpPost]
-        private ActionResult<BeerTypeDto> CreateBeerType([FromForm]BeerTypeDto beerType)
+        public ActionResult<BeerTypeDto> CreateBeerType([FromForm]BeerTypeDto beerType)
         {
             var beerTypeEntity = mapper.Map<BeerType>(beerType);
             beerTypeEntity.BeerTypId = Guid.NewGuid();
@@ -53,7 +53,7 @@ namespace Crud.Controllers
         }
 
         [HttpPut]
-        private ActionResult UpdateBeerType(Guid beerTypeId, [FromForm]BeerTypeDto beerType)
+        public ActionResult UpdateBeerType(Guid beerTypeId, [FromForm]BeerTypeDto beerType)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);
 
@@ -70,7 +70,7 @@ namespace Crud.Controllers
         }
 
         [HttpDelete]
-        private ActionResult DeleteBeerType(Guid beerTypeId)
+        public ActionResult DeleteBeerType(Guid beerTypeId)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);
             if (beerTypeFromRepo == null)

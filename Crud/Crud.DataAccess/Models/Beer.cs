@@ -16,7 +16,7 @@ namespace Crud.DataAccess.Models
         public string BeerDescription { get; set; }
         public string BeerLabelImg { get; set; }
         [ForeignKey("BeerType")]
-        public Guid BeerTypeFK { get; set; }
+        public Guid? BeerTypeFK { get; set; }
         public BeerType? BeerType { get; set; }
         
     }

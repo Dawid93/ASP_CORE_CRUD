@@ -37,8 +37,11 @@ namespace Crud
             {
                 setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             }).AddXmlDataContractSerializerFormatters();
+            
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddScoped<IBeerTypeRepository, BeerSqlRepository>();
             services.AddScoped<IBeerRepository, BeerSqlRepository>();
+            
             services.AddDbContext<BeerDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext"));

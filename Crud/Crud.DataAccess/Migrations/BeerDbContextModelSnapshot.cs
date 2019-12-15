@@ -36,7 +36,7 @@ namespace Crud.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("BeerTypeFK")
+                    b.Property<Guid?>("BeerTypeFK")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("BeerId");
@@ -65,9 +65,7 @@ namespace Crud.DataAccess.Migrations
                 {
                     b.HasOne("Crud.DataAccess.Models.BeerType", "BeerType")
                         .WithMany()
-                        .HasForeignKey("BeerTypeFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BeerTypeFK");
                 });
 #pragma warning restore 612, 618
         }
