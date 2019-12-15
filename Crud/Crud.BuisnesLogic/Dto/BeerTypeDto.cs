@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Crud.DataAccess.Models
+namespace Crud.BuisnesLogic.Dto
 {
-    public class BeerType
+    public class BeerTypeDto
     {
-        [Key]
-        public Guid BeerTypId;
+        public Guid BeerTypeId;
         [Required]
         public string BeerTypeName;
     }

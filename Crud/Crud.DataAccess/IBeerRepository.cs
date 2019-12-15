@@ -12,6 +12,6 @@ namespace Crud.DataAccess
         void AddBeer(Beer beer);
         void UpdateBeer(Beer beer);
         void DeleteBeer(Beer beer);
-        bool Commit();
+        bool SaveBeer();
     }
 }

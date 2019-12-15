@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Crud.DataAccess
 {
-    public class BeerSqlRepository : IBeerRepository
+    public class BeerSqlRepository : IBeerRepository, IBeerTypeRepository
     {
         private readonly BeerDbContext context;
 
@@ -15,21 +15,23 @@ namespace Crud.DataAccess
             this.context = context;
         }
 
+        #region BeerRepository
         public void AddBeer(Beer beer)
         {
             if (beer == null)
                 throw new ArgumentNullException(nameof(beer));
-            context.Add(beer);
+            context.Beers.Add(beer);
         }
 
-        public bool Commit()
+        public bool SaveBeer()
         {
             return (context.SaveChanges() >= 0);
         }
 
         public void DeleteBeer(Beer beer)
         {
-            context.Beers.Remove(beer);
+            if(beer != null)
+                context.Beers.Remove(beer);
         }
 
         public Beer GetBeer(Guid beerId)
@@ -47,5 +49,42 @@ namespace Crud.DataAccess
         public void UpdateBeer(Beer beer)
         {
         }
+        #endregion
+
+        #region BeerTypeRepository
+        public IEnumerable<BeerType> GetBeerTypes()
+        {
+            return context.BeerTypes.ToList();
+        }
+
+        public BeerType GetBeerType(Guid beerTypeId)
+        {
+            if (beerTypeId == Guid.Empty)
+                throw new ArgumentNullException();
+            return context.BeerTypes.Where(x => x.BeerTypId == beerTypeId).FirstOrDefault();
+        }
+
+        public void AddBeerType(BeerType beerType)
+        {
+            if (beerType == null)
+                throw new ArgumentNullException(nameof(beerType));
+            context.BeerTypes.Add(beerType);
+        }
+
+        public void UpdateBeerType(BeerType beerType)
+        {
+        }
+
+        public void DeleteBeerType(BeerType beerType)
+        {
+            if (beerType != null)
+                context.BeerTypes.Remove(beerType);
+        }
+
+        public bool SaveBeerType()
+        {
+            return (context.SaveChanges() >= 0);
+        }
+        #endregion
     }
 }
