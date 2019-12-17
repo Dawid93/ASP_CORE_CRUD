@@ -3,4 +3,5 @@ export class BeerDto {
     beerName: string;
     beerDescription: string;
     beerLabelImg: string;
+    beerTypeFK: string;
 }

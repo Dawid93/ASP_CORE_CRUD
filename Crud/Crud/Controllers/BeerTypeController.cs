@@ -29,7 +29,7 @@ namespace Crud.Controllers
             return Ok(mapper.Map<IEnumerable<BeerTypeDto>>(beerTypesFromRepo));
         }
 
-        [HttpGet("beerTypeId", Name = "GetBeerType")]
+        [HttpGet("{beerTypeId}", Name = "GetBeerType")]
         public ActionResult<BeerTypeDto> GetBeerType(Guid beerTypeId)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);
@@ -52,7 +52,7 @@ namespace Crud.Controllers
             return CreatedAtRoute("GetBeerType", new { beerTypeId = beerTypeToReturn.BeerTypeId }, beerTypeToReturn);
         }
 
-        [HttpPut]
+        [HttpPut("{beerTypeId}")]
         public ActionResult UpdateBeerType(Guid beerTypeId, [FromForm]BeerTypeDto beerType)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);
@@ -69,7 +69,7 @@ namespace Crud.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{beerTypeId}")]
         public ActionResult DeleteBeerType(Guid beerTypeId)
         {
             var beerTypeFromRepo = beerTypeRepository.GetBeerType(beerTypeId);

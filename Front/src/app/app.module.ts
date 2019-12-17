@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { BeerCollectionComponent } from './beer/beer-collection/beer-collection.component';
 import { BeerFormComponent } from './beer/beer-form/beer-form.component';
 import { BeerDetailComponent } from './beer/beer-detail/beer-detail.component';
+import { BeerTypeComponent } from './beer/beer-form/beer-type/beer-type.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BeerCollectionComponent,
     BeerFormComponent,
-    BeerDetailComponent
+    BeerDetailComponent,
+    BeerTypeComponent
   ],
   imports: [
     BrowserModule,
