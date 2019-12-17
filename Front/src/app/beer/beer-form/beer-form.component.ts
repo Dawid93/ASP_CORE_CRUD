@@ -28,7 +28,7 @@ export class BeerFormComponent implements OnInit {
       beerName: [''],
       beerDescription: [''],
       beerImgFile: [''],
-      beerTypeFK: null
+      beerTypeFK: ''
     });
 
     this.id = this.route.snapshot.paramMap.get('beerId');
