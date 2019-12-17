@@ -2,3 +2,7 @@
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.min.css";
+body {
+    background: rgb(166, 130, 10);
+    background: linear-gradient(90deg, rgba(166, 130, 10, 1) 10%, rgba(226, 227, 19, 1) 40%, rgba(206, 140, 16, 1) 70%, rgba(166, 130, 10, 1) 85%, rgba(206, 140, 16, 1) 100%);
+}
