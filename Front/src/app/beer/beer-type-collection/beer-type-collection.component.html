@@ -11,7 +11,7 @@
             <td> {{ type.beerTypeName }}</td>
             <td>
                 <a class="btn btn-outline-primary  mr-2">Edit</a>
-                <a class="btn btn-outline-danger">Delete</a>
+                <a class="btn btn-outline-danger" (click)="deleteElement(type)">Delete</a>
             </td>
         </tr>
     </tbody>

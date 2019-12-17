@@ -19,4 +19,17 @@ export class BeerTypeCollectionComponent implements OnInit {
     });
   }
 
+  editElement() {
+
+  }
+
+  deleteElement(beerType: BeerTypeDto) {
+    if (confirm(`Really delete this beer type: ${beerType.beerTypeName}?`)) {
+      this.beerTypeService.deleteBeerType(beerType.beerTypeId).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
+    }
+  }
+
 }
