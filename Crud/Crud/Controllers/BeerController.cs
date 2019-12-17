@@ -58,7 +58,7 @@ namespace Crud.Controllers
             }
             var beerToReturn = mapper.Map<BeerDto>(beerEntity);
             beerRepository.AddBeer(beerEntity);
-            beerRepository.Commit();
+            beerRepository.SaveBeer();
             return CreatedAtRoute("GetBeer", new { beerId = beerToReturn.BeerId }, beerToReturn);
         }
 
@@ -79,7 +79,7 @@ namespace Crud.Controllers
 
             mapper.Map(beer, beerFromRepo);
             beerRepository.UpdateBeer(beerFromRepo);
-            beerRepository.Commit();
+            beerRepository.SaveBeer();
 
             return NoContent();
         }
@@ -102,7 +102,7 @@ namespace Crud.Controllers
 
             mapper.Map(beerPatch, beerFromRepo);
             beerRepository.UpdateBeer(beerFromRepo);
-            beerRepository.Commit();
+            beerRepository.SaveBeer();
             return NoContent();
         }
 
@@ -113,7 +113,7 @@ namespace Crud.Controllers
             if (beerFromRepo == null)
                 return NotFound();
             beerRepository.DeleteBeer(beerFromRepo);
-            beerRepository.Commit();
+            beerRepository.SaveBeer();
             return NoContent();
         }
 
