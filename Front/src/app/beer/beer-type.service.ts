@@ -23,4 +23,9 @@ export class BeerTypeService {
   postBeerType(beerType: FormData): Observable<BeerTypeDto> {
     return this.http.post<BeerTypeDto>(this.beerTypeControllerApi, beerType);
   }
+
+  deleteBeerType(beerTypeId: string): Observable<{}> {
+    console.log(this.beerTypeControllerApi + '/' + beerTypeId);
+    return this.http.delete(this.beerTypeControllerApi + '/' + beerTypeId);
+  }
 }

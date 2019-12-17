@@ -2,7 +2,16 @@
     <a class="navbar-brand">{{ pageTitle }} </a>
     <ul class="nav navbar-nav">
         <li><a class="nav-link" [routerLink]="['/beers']">Beers List</a></li>
-        <li><a class="nav-link" [routerLink]="['/beers/0/edit']">Add Beer</a></li>
+        <li><a class="nav-link" [routerLink]="['/beerType']">Beer Types List</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarAddMenu" role="button" data-toggle="dropdown">
+                  Add
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarAddMenu">
+                <a class="dropdown-item" [routerLink]="['/beers/0/edit']">Add Beer</a>
+                <a class="dropdown-item" [routerLink]="['/beerType']">Add Beer Type</a>
+            </div>
+        </li>
     </ul>
 </nav>
 <div class="container" style="padding-top: 4.5rem;">

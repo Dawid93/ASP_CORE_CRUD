@@ -1,0 +1,18 @@
+<table class="table table-striped table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let type of beerTypes">
+            <td> {{ type.beerTypeName }}</td>
+            <td>
+                <a class="btn btn-outline-primary  mr-2">Edit</a>
+                <a class="btn btn-outline-danger" (click)="deleteElement(type)">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
