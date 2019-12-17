@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../beer.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BeerDto } from '../Models/beerDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BeerTypeService } from '../beer-type.service';
 import { BeerTypeDto } from '../Models/beerTypeDto';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-beer-form',
@@ -14,8 +15,11 @@ import { BeerTypeDto } from '../Models/beerTypeDto';
 export class BeerFormComponent implements OnInit {
 
   private uploadForm: FormGroup;
+  private beerTypeForm: FormGroup;
   private id: string;
   private selectedType: BeerTypeDto;
+
+  private createNewBeerType: boolean;
 
   beerTypes: BeerTypeDto[];
 
@@ -25,10 +29,14 @@ export class BeerFormComponent implements OnInit {
 
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({
-      beerName: [''],
+      beerName: ['', Validators.required],
       beerDescription: [''],
       beerImgFile: [''],
       beerTypeFK: ''
+    });
+
+    this.beerTypeForm = this.formBuilder.group({
+      beerTypeName: ['', Validators.required]
     });
 
     this.id = this.route.snapshot.paramMap.get('beerId');
@@ -46,6 +54,10 @@ export class BeerFormComponent implements OnInit {
       });
     }
 
+    this.getAllBeerTypes();
+  }
+
+  getAllBeerTypes() {
     this.beerTypeService.getBeerTypes().subscribe({
       next: types => this.beerTypes = types
     });
@@ -76,6 +88,10 @@ export class BeerFormComponent implements OnInit {
       }
   }
 
+  setCreateNewBeerType() {
+    this.createNewBeerType = !this.createNewBeerType;
+  }
+
   setBeerType(beerType: BeerTypeDto) {
     this.selectedType = beerType;
     this.uploadForm.get('beerTypeFK').setValue(this.selectedType.beerTypeId);
@@ -87,7 +103,23 @@ export class BeerFormComponent implements OnInit {
     });
   }
 
+  saveNewBeerType() {
+    const formData = new FormData();
+    formData.append('beerTypeName', this.beerTypeForm.get('beerTypeName').value);
+    this.beerTypeService.postBeerType(formData).subscribe({
+      next: type => {
+        this.selectedType = type;
+        this.getAllBeerTypes();
+        this.setCreateNewBeerType();
+      }
+    });
+  }
+
   onSubmit() {
+    this.saveBeer();
+  }
+
+  saveBeer() {
     const formData = new FormData();
     formData.append('beerImgFile', this.uploadForm.get('beerImgFile').value);
     formData.append('beerName', this.uploadForm.get('beerName').value);

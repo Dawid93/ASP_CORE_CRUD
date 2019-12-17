@@ -25,7 +25,7 @@
                 <h5>{{ selectedType.beerTypeName }}</h5>
             </div>
 
-            <div class="btn-group">
+            <div class="btn-group mb-3">
                 <div class="dropdown mr-2">
                     <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
                           Choose beer type:
@@ -35,9 +35,16 @@
                     </div>
                 </div>
 
-                <button class="btn btn-outline-secondary mr-2" type="button">
+                <button class="btn btn-outline-secondary mr-2" type="button" (click)="setCreateNewBeerType()">
                         Add beer type
                 </button>
+            </div>
+
+            <div [formGroup]="beerTypeForm" *ngIf='createNewBeerType'>
+                <div class="form-group">
+                    <input type="text" formControlName="beerTypeName" class="form-control" placeholder="Beer Type Name (required)">
+                </div>
+                <button class="btn btn-primary" type="button" (click)="saveNewBeerType()">Save beer type</button>
             </div>
         </div>
     </div>
